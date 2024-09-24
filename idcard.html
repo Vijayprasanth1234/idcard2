@@ -1,0 +1,228 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* Header css */
+        .bd-navbar {
+            min-height: 4rem;
+            background-color: green;
+            box-shadow: 0 0.5rem 1rem rgba(193, 176, 176, 0.05), inset 0 -1px 0 rgba(0,0,0,.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid black;
+        }
+
+        .form-element {
+            margin: 5px;
+            min-width: 200px;
+            display: flex;
+        }
+
+        .form-label {
+            min-width: 150px;
+        }
+
+        .id-card-container {
+            display: none;
+        }
+
+        .card-container {
+            width: 90vw;
+            height: 300px;
+            border-radius: 10px;
+            margin: 10px;
+            background: #fceeb5;
+            font-family: Abel, Arial, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 500px;
+        }
+
+        .card-wrapper {
+            width: 80vw;
+            height: 250px;
+            background-color: #fff;
+            background: linear-gradient(#f8f8f8, #fff);
+            box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            margin: 1.5rem;
+            display: flex;
+        }
+
+        .user-card {
+            width: 30vw;
+            height: 100%;
+            position: relative;
+            background-size: 400px; /* make the background larger than the element */
+  background-image: linear-gradient(43deg, navy 50%, hsl(86, 78%, 50%) 46%,hsl(321, 78%, 50%) 46%, #FFCC70);
+  color: transparent;
+  font-weight: 700;
+  animation: flow s infinite; /* animate the background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .general-information {
+            width: 60vw;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .user-photo {
+            font-size: 7em;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        .card-element {
+            margin-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-name {
+            font-size: 1.5rem;
+        }
+
+        .college-name {
+            font-size: 1.2rem;
+        }
+
+        .cardLocation {
+            font-size: 1.2rem;
+        }
+
+        .generateButton {
+            background-color: #7952b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+    <div class="text-light w-100 h3 text-center" style="font-size: 50px;">ID Card generator</div>
+</header>
+
+<div class="container d-flex">
+    <div class="section-container col-6 p-4">
+        <div class="text-center font-weight-bold">
+            <h3>Input form</h3>
+        </div>
+        <form onsubmit="return false">
+            <div class="form-element py-3">
+                <label class="form-label">
+                    Enter Name:
+                </label>
+                <input type="text" id="name" />
+            </div>
+            <div class="form-element py-3">
+                <label class="form-label">
+                    Enter College Name:
+                </label>
+                <input type="text" id="collegeName" />
+            </div>
+            <div class="form-element py-3">
+                <label class="form-label">
+                    Enter Location:
+                </label>
+                <input type="text" id="location" />
+            </div>
+            <div class="form-element py-3">
+                <label class="form-label">
+                    Upload Photo:
+                </label>
+                <input type="file" id="photo" accept="image/*" />
+            </div>
+            <button onclick="generateCard()" type="button" class="btn generateButton">Generate Card</button>
+        </form>
+    </div>
+    <div class="section-container col-6">
+        <div class="id-card-container" id="collegeCard">
+            <div class="text-center">
+                <h3>Generated Card</h3>
+            </div>
+            <div class="card-container">
+                <div class="card-wrapper">
+                    <div class="user-card">
+                        <img id="cardPhoto" class="user-photo" src="" alt="User Photo">
+                    </div>
+                    <div class="general-information">
+                        <div class="card-element card-name">
+                            <span>Name:</span>
+                            <span id="cardName"></span>
+                        </div>
+                        <div class="card-element college-name">
+                            <span>College Name:</span>
+                            <span id="cardCollegeName"></span>
+                        </div>
+                        <div class="card-element college-name">
+                            <span>Location:</span>
+                            <span id="cardLocation"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateCard() {
+        // Get value of Student name from form input 
+        const nameElement = document.getElementById("name");
+        const nameValue = nameElement.value; 
+        // Assign the value of student name to generated card
+        const cardNameElement = document.getElementById("cardName");
+        cardNameElement.innerHTML = nameValue;
+
+        // Get value of college name from form input 
+        const collegeNameValue = document.getElementById("collegeName").value;
+        // Assign the value of college name to generated card
+        document.getElementById("cardCollegeName").innerHTML = collegeNameValue;
+
+        // Get value of location name from form input 
+        const locationValue = document.getElementById("location").value;
+        // Assign the value of location name to generated card
+        document.getElementById("cardLocation").innerHTML = locationValue;
+
+        // Get the uploaded photo
+        const photoInput = document.getElementById("photo");
+        const photoFile = photoInput.files[0];
+        const reader = new FileReader();
+        reader.onload = function() {
+            const cardPhotoElement = document.getElementById("cardPhoto");
+            cardPhotoElement.src = reader.result;
+        };
+        reader.readAsDataURL(photoFile);
+
+        // Display final generated card to user     
+        document.getElementById("collegeCard").style.display = "block";
+    }
+</script>
+</body>
+</html>
